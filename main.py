@@ -119,9 +119,9 @@ def handle_dialog(req, res, obj):
             f"Все говорят '{req['request']['original_utterance']}', а ты купи слона, не будь кабанчиком!"
         res['response']['buttons'] = get_suggests(user_id)
 
-    elif req['request']['original_utterance'].lower() == 'что ты умеешь':
+    elif req['request']['original_utterance'].lower() in ['помощь', 'что ты умеешь']:
         res['response']['text'] = \
-            f"Я умею продавать слонов и кроликов."
+            f"Я умею продавать слонов и кроликов. Попробуйте ввести команду 'я куплю' или 'не хочу'"
 
 
 # Функция возвращает две подсказки для ответа.

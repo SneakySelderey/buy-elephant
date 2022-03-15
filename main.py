@@ -114,9 +114,14 @@ def handle_dialog(req, res, obj):
         return
 
     # Если нет, то убеждаем его купить слона!
-    res['response']['text'] = \
-        f"Все говорят '{req['request']['original_utterance']}', а ты купи слона, не будь кабанчиком!"
-    res['response']['buttons'] = get_suggests(user_id)
+    elif req['request']['original_utterance'].lower() not in ['помощь', 'что ты умеешь']:
+        res['response']['text'] = \
+            f"Все говорят '{req['request']['original_utterance']}', а ты купи слона, не будь кабанчиком!"
+        res['response']['buttons'] = get_suggests(user_id)
+
+    elif req['request']['original_utterance'].lower() == 'что ты умеешь':
+        res['response']['text'] = \
+            f"Я умею продавать слонов и кроликов."
 
 
 # Функция возвращает две подсказки для ответа.

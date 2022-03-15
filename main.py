@@ -108,7 +108,6 @@ def handle_dialog(req, res, obj):
     ]:
         # Пользователь согласился, прощаемся.
         res['response']['text'] = 'Слона, а также других животных, можно найти на Яндекс.Маркете!'
-        res['response']['end_session'] = True
         if obj == 'слона':
             response = {
                 'session': request.json['session'],
@@ -119,6 +118,7 @@ def handle_dialog(req, res, obj):
             }
             return handle_dialog(request.json, response, 'кролика')
         else:
+            res['response']['end_session'] = True
             return
 
     # Если нет, то убеждаем его купить слона!

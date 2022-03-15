@@ -57,12 +57,13 @@ def main():
     # Отправляем request.json и response в функцию handle_dialog.
     # Она сформирует оставшиеся поля JSON, которые отвечают
     # непосредственно за ведение диалога
-    handle_dialog(request.json, response, 'слона')
+    for x in ['слона', 'кролика']:
+        handle_dialog(request.json, response, x)
 
-    logging.info(f'Response:  {response!r}')
+        logging.info(f'Response:  {response!r}')
 
-    # Преобразовываем в JSON и возвращаем
-    return json.dumps(response)
+        # Преобразовываем в JSON и возвращаем
+        return json.dumps(response)
 
 
 def handle_dialog(req, res, obj):
@@ -108,18 +109,8 @@ def handle_dialog(req, res, obj):
     ]:
         # Пользователь согласился, прощаемся.
         res['response']['text'] = 'Слона, а также других животных, можно найти на Яндекс.Маркете!'
-        if obj == 'слона':
-            response = {
-                'session': request.json['session'],
-                'version': request.json['version'],
-                'response': {
-                    'end_session': False
-                }
-            }
-            handle_dialog(request.json, response, 'кролика')
-        else:
-            res['response']['end_session'] = True
-            return
+        res['response']['end_session'] = True
+        return
 
     # Если нет, то убеждаем его купить слона!
     elif req['request']['original_utterance'].lower() not in ['помощь', 'что ты умеешь']:

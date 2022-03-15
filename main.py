@@ -1,5 +1,5 @@
 # импортируем библиотеки
-from flask import Flask, request
+from flask import Flask, request, render_template
 import logging
 
 # библиотека, которая нам понадобится для работы с JSON
@@ -28,6 +28,11 @@ logging.basicConfig(level=logging.INFO)
 # Когда он откажется купить слона,
 # то мы уберем одну подсказку. Как будто что-то меняется :)
 sessionStorage = {}
+
+
+@app.route('/')
+def page():
+    return render_template('main.html')
 
 
 @app.route('/post', methods=['POST'])
